@@ -18,7 +18,7 @@ public class MainSiakad {
         boolean ditemukan = false;
         for (int i = 0; i < n; i++) {
             if (data[i].mahasiswa.getNim().equals(nim)) {
-                data[i].tampilkanData();
+                System.out.print("Mahasiswa ditemukan: "); data[i].tampilkanData();
                 System.out.println("------------------------");
                 ditemukan = true;
             }
@@ -33,31 +33,32 @@ public class MainSiakad {
         Scanner input = new Scanner(System.in);
 
         Mahasiswa[] daftarMahasiswa = {
-            new Mahasiswa("22001", "Ali Rahman"),
-            new Mahasiswa("22002", "Budi Santoso"),
-            new Mahasiswa("22003", "Citra Dewi")
+            new Mahasiswa("22001", "Ali Rahman", "Informatika"),
+            new Mahasiswa("22002", "Budi Santoso", "Informatika"),
+            new Mahasiswa("22003", "Citra Dewi", "Sistem Informasi Bisnis")
         };
 
         MataKuliah[] daftarMK = {
-            new MataKuliah("MK001", "Struktur Data"),
-            new MataKuliah("MK002", "Basis Data"),
-            new MataKuliah("MK003", "Desain Web")
+            new MataKuliah("MK001", "Struktur Data", 3),
+            new MataKuliah("MK002", "Basis Data", 3),
+            new MataKuliah("MK003", "Desain Web", 3)
         };
 
         Nilai[] daftarNilai = {
             new Nilai(daftarMahasiswa[0], daftarMK[0], 80, 85, 90), 
             new Nilai(daftarMahasiswa[0], daftarMK[1], 60, 75, 70), 
             new Nilai(daftarMahasiswa[1], daftarMK[0], 75, 70, 80), 
-            new Nilai(daftarMahasiswa[2], daftarMK[2], 80, 90, 65) 
+            new Nilai(daftarMahasiswa[2], daftarMK[1], 85, 90, 95), 
+            new Nilai(daftarMahasiswa[2], daftarMK[2], 80, 90, 65)
         };
         int jumlahNilai = daftarNilai.length;
 
         int pilihan;
         do {
-            System.out.println("\n===== MENU SIAKAD =====");
-            System.out.println("1. Tampilkan Data Mahasiswa dan Mata Kuliah");
-            System.out.println("2. Input Nilai Mahasiswa");
-            System.out.println("3. Tampilkan Daftar Nilai Mahasiswa");
+            System.out.println("===== MENU SIAKAD =====");
+            System.out.println("1. Tampilkan Daftar Mahasiswa");
+            System.out.println("2. Tampilkan Daftar Mata Kuliah");
+            System.out.println("3. Tampilkan Data Penilaian");
             System.out.println("4. Urutkan Mahasiswa Berdasarkan Nilai Akhir");
             System.out.println("5. Cari Mahasiswa Berdasarkan NIM");
             System.out.println("0. Keluar");
@@ -66,77 +67,45 @@ public class MainSiakad {
 
             switch (pilihan) {
                 case 1:
-                    System.out.println("\n=== Data Mahasiswa ===");
+                    System.out.println("=== Daftar Mahasiswa ===");
                     for (int i = 0; i < daftarMahasiswa.length; i++) {
-                        System.out.println((i + 1) + ". " + daftarMahasiswa[i].getNim() + " - " + daftarMahasiswa[i].getNama());
-                    }
-
-                    System.out.println("\n=== Data Mata Kuliah ===");
-                    for (int i = 0; i < daftarMK.length; i++) {
-                        System.out.println((i + 1) + ". " + daftarMK[i].getKodeMK() + " - " + daftarMK[i].getNamaMK());
+                        System.out.println((i + 1) + ". " + "NIM: " + daftarMahasiswa[i].getNim() + " | " + "Nama: " + daftarMahasiswa[i].getNama() + " | " + "Prodi: " + daftarMahasiswa[i].getProdi());
                     }
                     break;
 
                 case 2:
-                    System.out.println("\n== Input Nilai Mahasiswa ==");
-                    System.out.println("Pilih Mahasiswa:");
-                    for (int i = 0; i < daftarMahasiswa.length; i++) {
-                        System.out.println((i + 1) + ". " + daftarMahasiswa[i].getNama());
-                    }
-                    System.out.print("Masukkan pilihan: ");
-                    int indexMhs = input.nextInt() - 1;
-
-                    System.out.println("Pilih Mata Kuliah:");
-                    for (int i = 0; i < daftarMK.length; i++) {
-                        System.out.println((i + 1) + ". " + daftarMK[i].getNamaMK());
-                    }
-                    System.out.print("Masukkan pilihan: ");
-                    int indexMK = input.nextInt() - 1;
-
-                    System.out.print("Nilai Tugas: ");
-                    double tugas = input.nextDouble();
-                    System.out.print("Nilai UTS  : ");
-                    double uts = input.nextDouble();
-                    System.out.print("Nilai UAS  : ");
-                    double uas = input.nextDouble();
-
-                    daftarNilai[jumlahNilai] = new Nilai(daftarMahasiswa[indexMhs], daftarMK[indexMK], tugas, uts, uas);
-                    jumlahNilai++;
-
-                    System.out.println("Data nilai berhasil ditambahkan!");
+                System.out.println("=== Daftar Mata Kuliah ===");
+                for (int i = 0; i < daftarMK.length; i++) {
+                    System.out.println((i + 1) + ". " + "Kode MK: " + daftarMK[i].getKodeMK() + " | " + "Nama: " + daftarMK[i].getNamaMK() + " | " + "SKS: " + daftarMK[i].getSKSMk());
+                }
                     break;
 
                 case 3:
-                    System.out.println("\n=== Daftar Nilai Mahasiswa ===");
-                    if (jumlahNilai == 0) {
-                        System.out.println("Belum ada data nilai.");
-                    } else {
-                        for (int i = 0; i < jumlahNilai; i++) {
-                            System.out.println("Data ke-" + (i + 1));
-                            daftarNilai[i].tampilkanData();
-                            System.out.println("-------------------------------");
-                        }
+                System.out.println("Data Penilaian:");
+                if (jumlahNilai == 0) {
+                    System.out.println("Belum ada data nilai.");
+                } else {
+                    for (int i = 0; i < jumlahNilai; i++) {
+                        daftarNilai[i].tampilkanData();
                     }
-                    break;
+                }
+                break;
 
                 case 4:
-                    System.out.println("\n== Sorting Nilai Akhir Mahasiswa (Descending) ==");
+                    System.out.println("Data Penilaian: ");
                     if (jumlahNilai == 0) {
                         System.out.println("Belum ada data nilai untuk diurutkan.");
                     } else {
                         bubbleSortNilai(daftarNilai, jumlahNilai);
-                        System.out.println("Data berhasil diurutkan berdasarkan nilai akhir.");
                         for (int i = 0; i < jumlahNilai; i++) {
-                            System.out.println("Ranking " + (i + 1));
                             daftarNilai[i].tampilkanData();
-                            System.out.println("------------------------");
                         }
                     }
                     break;
 
                 case 5:
-                    input.nextLine(); // clear buffer
-                    System.out.println("\n== Cari Nilai Mahasiswa berdasarkan NIM ==");
+                    input.nextLine();
+                    System.out.println("== Cari Nilai Mahasiswa berdasarkan NIM ==");
                     System.out.print("Masukkan NIM Mahasiswa: ");
                     String cariNIM = input.nextLine();
                     cariMahasiswaByNIM(daftarNilai, jumlahNilai, cariNIM);
